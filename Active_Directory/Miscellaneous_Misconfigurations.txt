@@ -1,0 +1,23 @@
+##Miscellaneous_Misconfigurations
+
+#Membre de groupe Exchange
+
+Installation par défaut: Groupe Exchange Windows Permissions --> Pas dans un groupe protégé
+Donc utilisable par un utilisateur avec les droits DCSync
+
+--> https://github.com/gdedrouas/Exchange-AD-Privesc
+
+Focus le groupe "Organization Management" --> full control sur MS Exchange Sec Groups
+Ajouter les utilisateurs de notre choix dans l'OU.
+
+
+#PrivExchange Attack
+
+N'importe quel user avec une boite mail peut forcer le server exchange à authentifier
+à n'importe quel host par HTTP
+--> Relay vers LDAP puis dump de la base NTDS
+
+#Printer Bug
+
+
+
