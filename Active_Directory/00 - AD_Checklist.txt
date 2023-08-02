@@ -1,0 +1,36 @@
+Active Directory:
+
+Connection:
+RDP: xfreerdp /v:<TARGET> /u:<USER> /:<PASS>
+SSH: ssh <USER>@<ip>
+
+Etapes:
+-Enumération:
+Quels sont mes droits ? (PrivEsc)
+Quels comptes ? (UserEnum)
+Qui à des droits ? (Bloodhound, PowerView)
+GPO/GPP ?
+Domain Trust (Get-ADTrust ou PowerView Get-DomainTrust ou Bloodhound)
+
+-Exploitation:
+Recupération MDP (Kerberoast, ACLAbuse, DCSync, Exploits, Mimikatz...)
+Scripts avec MDP en dur ?
+Cracking des MDP (hashcat)
+
+-Mouvements latéraux/verticaux:
+Qui peut RDP ? SSH ? EnterPSSession ? Instances SQL ?
+
+!!Attention au double-hop!!
+-->Soit recréer objet password avec PS
+$password = ConvertTo-SecureString '<PASS>' -AsPlainText -Force
+$cred = New-Object System.Management.Automation.PSCredential('<DOMAIN>\<USER>', $password)
+
+Ensuite utiliser les outils (eq. PowerView): get-domainuser -spn -credential $cred | select samaccountname
+checker la klist (commande: klist)
+
+-->Soit créer une nouvelle session (non utilisable par Evil-WinRM)
+Register-PSSession -Name <New_Session> -RunAsCredential <DOMAIN>\<USER>
+EnterPSSession -ComputerName <PC_NAME> -Credential <DOMAIN>\<USER> -ConfigurationName <New_Session>
+
+
+-->Utiliser CredSSP, port fwd, process injection (sacrificial process)
