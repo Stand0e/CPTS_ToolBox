@@ -1,5 +1,5 @@
 ##ASREP_Roasting
-Pas de préauth kerberos
+Utilisateur sans préauth kerberos
 Si user avec GenericWrite ou GenericAll --> Possibilité de modifier l'option 'Do not Require Kerb préauth'
 
 #Enum avec ./PowerView.ps1

