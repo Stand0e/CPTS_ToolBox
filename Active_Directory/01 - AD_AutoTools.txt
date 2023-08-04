@@ -1,0 +1,12 @@
+##AD Vuln Assessments
+Utile pour compléter son rapport, énumerer et valider les infos trouvées.
+
+AD Explorer --> Recherche dans l'AD avec l'outil SysInternal - ADExplorer
+
+PingCastle --> Scan de vulnérabilités et génération d'un rapport détaillé
+
+Group3r:
+group3r.exe -f <OUTPUT.LOG>
+
+ADRecon:
+.\ADRecon.ps1 
