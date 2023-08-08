@@ -1,3 +1,26 @@
 ##Linux Privesc Enum
+--> Dès que possible: LinPeas (-->Duh !)
 
 #Environnement Enum
+whoami, id, hostname, ifconfig, ip -a, sudo -l
+cat /etc/os-release --> Version os
+Check $PATH --> Peut être utilisé si mal configuré
+env
+cat /proc/version OU uname -a
+lscpu --> Informations sur le type de cpu/version
+cat /etc/shells --> Enumération des shells dispos sur la machine (noter tmux/screen)
+
+Si possible énumérer les infos (defenses protections) de :
+Exec Shield, iptables, AppArmor, SELinuxn Fail2ban, Snort, UFW
+
+Enumération des disques, USB, opticals drives... avec lsblk
+-->Possibilité de mount et exploiter
+
+lpstat --> Imprimantes ? Queues actives --> Informations sensibles ?
+cat /etc/fstab ou df -h ---> Disques montés ? 
+route ou netstat -rn ou arp -a --> Infos sur le réseau 
+cat /etc/resolv.conf --> infos sur le domaine si concerné
+
+/etc/passwd et /etc/shadow (duh) --> checker les 'vrais users' (*.sh)
+
+cat /etc/groups ou getent group <NOM_GRP> (ex. sudo)

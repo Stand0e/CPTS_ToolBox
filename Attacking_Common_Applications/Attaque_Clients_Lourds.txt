@@ -1,0 +1,31 @@
+##Attaquer les clients lourds
+
+Exemples d'attaques:
+Hardcoded Creds
+SQLi
+BFO
+Improper Error Handling
+DLL Hijacking
+Insecure Storage
+Session Management
+
+#Enumération
+Outils: CFF Explorer, Detrect It Easy, Process Monitor, Strings, ProcMon64 (Sysinternals)
+
+#Client Side Attacks
+Outils: Ghidra, IDA, OllyDbg, Radare2, dnSpy, x64dbg, JADX, Frida
+
+#Network Side Attacks
+Outils: Wireshark, tcpdump, TCPView, BurpSuite
+
+#Server Side Attacks
+Similaires aux attaques des applis web --> OWASP TOP 10
+
+#Hardcoded Creds
+Analyse avec x64dbg --> Positionner sur Exit Breakpoint
+Analyser la code, création de fichiers ? Peut-on voir les fichiers ? Empecher leur suppression ?
+
+Dumper la memoire interessante --> RW rights, map files, presence d'un magic bytes (MZ.. exe)
+Analyse avec strings
+Reverse des executables .NET avec de4dot
+Lire le code source avec DnSpy (runas.exe ...)
