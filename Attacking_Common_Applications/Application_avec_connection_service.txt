@@ -1,0 +1,18 @@
+##Decompilation et analyse
+
+#Utilisation GDB
+gdb <EXEC>
+set disassembly-flavor instel
+disas main
+
+--> Checker les calls (connections à des services)
+Mettre un breakpoint sur les calls intéressants:
+	b *<adresse>
+	run
+
+#DLL File examination
+
+Get-FileMetaData <NOM_DLL>
+
+Si .Net --> dnSpy
+exemple: inspection fichier dossiers pertinents: MultimasterAPI.Controllers/ColleagueController
