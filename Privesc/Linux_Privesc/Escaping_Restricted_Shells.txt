@@ -1,0 +1,8 @@
+##Escaping Restricted Shells
+
+Enumérer le shell + commande help
+Controler les caractères d'escape de commande: > >> < | & && ...
+Docs:
+https://null-byte.wonderhowto.com/how-to/escape-restricted-shell-environments-linux-0341685/
+GTFOBins --> pour les executables 
+ssh <User>@<IP> -t "bash --noprofile"  --> A partir de la machine attaquante
