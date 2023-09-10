@@ -33,3 +33,9 @@ for i in $(curl -s https://gtfobins.github.io/ | html2text | cut -d" " -f1 | sed
 
 Trace system calls:
 strace <commande>
+
+#Checker les capabilities
+cap_sys_* & cap_net_*
+	find /usr/bin /usr/sbin /usr/local/bin /usr/local/sbin -type f -exec getcap {} \;
+-->Modification des binaries interessants
+
