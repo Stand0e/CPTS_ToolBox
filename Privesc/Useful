@@ -1,0 +1,3 @@
+https://github.com/DanMcInerney/net-creds --> Extracteur automatique de hashs et creds ^à partir des trames réseaux (scapy)
+
+https://github.com/dievus/lnkbomb --> Générateur de fichier .lnk pour attaques SMB (extract de hash ntlm) 
