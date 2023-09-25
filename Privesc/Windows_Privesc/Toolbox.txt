@@ -1,0 +1,30 @@
+    Directory: C:\Users\Administrator\Documents\Goodies-Windows
+
+Mode                LastWriteTime         Length Name
+----                -------------         ------ ----
+d-----        3/28/2023  11:59 PM                LocalPotato
+-a----         3/5/2023   2:30 PM        8386560 chisel.exe
+-a----        8/15/2021   1:57 PM          18878 DomainPasswordSpray.ps1
+-a----        3/24/2023  11:01 AM           3449 EnableAllTokenPrivs.ps1
+-a----        8/15/2021   1:05 PM       11281853 GetUserSPNs_windows.exe
+-a----         8/9/2021  12:46 PM          32256 HiveNighmare-AKA-SeriousSAM.exe
+-a----        2/28/2022   7:40 PM         274432 Inveigh.exe
+-a----        3/26/2023   6:01 PM           8750 Invoke-Clipboard.ps1
+-a----        3/25/2023   9:18 PM          16974 jaws-enum.ps1
+-a----        3/26/2023   5:16 PM         347648 JuicyPotato.exe
+-a----        2/24/2022   3:18 PM        7996928 kerbrute_Windows.exe
+-a----         3/5/2023   2:30 PM       11849245 LaZagne.exe
+-a----        9/19/2022   8:44 AM        1355264 mimikatz.exe
+-a----        9/16/2011   9:52 PM          38616 nc.exe
+-a----        3/25/2023   1:22 AM         600580 PowerUp.ps1
+-a----        3/29/2023   9:31 PM        1241805 PowerUpSQL.ps1
+-a----        2/22/2022   1:16 PM         770279 PowerView.ps1
+-a----         8/9/2021  12:44 PM         178561 PrintNightmare.ps1
+-a----        12/7/2021   4:57 AM          27136 PrintSpoofer64.exe
+-a----        3/29/2023  12:08 AM           1752 PSUpload.ps1
+-a----        2/22/2022   1:30 PM         465408 Rubeus.exe
+-a----         3/8/2022   8:37 PM         906752 SharpHound.exe
+-a----        3/25/2023   9:22 PM          16663 Sherlock.ps1
+-a----        8/15/2021   1:12 PM         744960 Snaffler.exe
+-a----        3/12/2022  11:03 AM        4928112 wget.exe
+-a----        3/22/2023   2:01 PM        1969152 winPEASx64.exe
